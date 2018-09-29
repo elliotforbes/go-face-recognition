@@ -3,7 +3,7 @@ Face Recognition
 
 In this tutorial, we'll be implementing face recognition and detection using local binary patterns.
 
-## Face Detection and Face Recognition
+## The Process
 
 The process of recognizing a person from an image tends to follow a 3 step process. First step is face representation, the second is feature extraction and the final step is classification.
 
@@ -11,7 +11,9 @@ The process of recognizing a person from an image tends to follow a 3 step proce
 * Feature Extraction - In this phase we extract the most useful and unique features (properties) of a face image
 * Classification - With the most useful properties of the face extracted, we move into the classification phase and we try to compare these properties against an image database.
 
-## LBPH
+## Feature Extraction with Local Binary Patterns
+
+In order to extract some of the most useful features from an image of a face, we can use the Local Binary Pattern method.  
 
 LBP is a type of visual descriptor used for classification in computer vision. It typically subdivides the face area of an image into small regions from which Local Binary Patterns (LBP), histograms are extracted and concatenated into a single feature vector.
 
@@ -35,6 +37,16 @@ This would then produce the following histogram for these values:
 
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Example_histogram.png/220px-Example_histogram.png)
 
+## LBP
+
+The Local Binary Pattern looks at 9 pixels at a time. It then takes these 9 pixel values and computes a single value from it. It takes the central value and it compares it against all of it's neighbouring values and if the neighbouring value is higher, it replaces it with a 1, if it is lower, it is replaced with a 0. These 8 neighbour bits are then turned into a byte.
+
+| 1 | 1 | 0 |
+| - | - | - |
+| 0 | - | 1 |
+| 0 | 1 | 0 |
+
+Equates to [1,1,0,1,0,1,0,0] if we turned this into an array of Bytes.
 
 ## References
 

@@ -1,15 +1,17 @@
 package utils
 
-import "math"
+import (
+	"math"
+)
 
 type Histogram struct {
-	Bin    Bin
-	Values []float64
+	Buckets []Bucket
 }
 
-type Bin struct {
-	High float64
-	Low  float64
+type Bucket struct {
+	Low    float64
+	High   float64
+	Values []float64
 }
 
 type Vector3 struct {
@@ -18,12 +20,19 @@ type Vector3 struct {
 	Z float64
 }
 
-func GenerateHistogram(values []float64) Histogram {
-	const buckets = 10
+// GenerateHistogram generates a simple histogram in which
+// it buckets everything
+func GenerateHistogram(buckets []Bucket, values []float64) Histogram {
 	var histogram Histogram
+	histogram.Buckets = buckets
 
-	for i := range values {
-		histogram.Values = append(histogram.Values, float64(i))
+	for _, i := range values {
+		for j := 0; j < len(histogram.Buckets); j++ {
+			if (i > histogram.Buckets[j].Low) && (i < histogram.Buckets[j].High) {
+				histogram.Buckets[j].Values = append(histogram.Buckets[j].Values, i)
+				break
+			}
+		}
 	}
 
 	return histogram
