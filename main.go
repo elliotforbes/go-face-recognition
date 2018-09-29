@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/elliotforbes/go-face-recognition/utils"
+
+	"github.com/elliotforbes/go-face-recognition/pkg/utils"
 )
 
 func main() {
@@ -10,10 +11,10 @@ func main() {
 
 	values := []float64{1.3, 2.3, 4.2, 5.3, 1.1, 1.7}
 
-	histogram := GenerateHistogram(values)
+	histogram := utils.GenerateHistogram(values)
 	fmt.Println(histogram)
 
-	distance := CalculateEuclidDistance(Vector3{2, -1, 0}, Vector3{-2, 2, 0})
+	distance := utils.CalculateEuclidDistance(utils.Vector3{2, -1, 0}, utils.Vector3{-2, 2, 0})
 
 	fmt.Println(distance)
 
