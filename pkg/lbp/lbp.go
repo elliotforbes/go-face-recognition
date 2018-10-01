@@ -10,7 +10,7 @@ import (
 // GenerateLocalBinaryPatterns is a function that takes in a source
 // image and then computes the Local Binary Patterns or LBP for a given
 // image.
-func GenerateLocalBinaryPattern(src image.Image) error {
+func LocalBinaryPattern(img image.Image) error {
 	return nil
 }
 
