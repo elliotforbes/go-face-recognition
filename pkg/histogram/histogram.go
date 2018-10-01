@@ -12,18 +12,17 @@ type Bucket struct {
 
 // GenerateHistogram generates a simple histogram in which
 // it buckets everything
-func GenerateHistogram(buckets []Bucket, values []float64) Histogram {
+func GenerateHistogram(pixels [][]float64) Histogram {
 	var histogram Histogram
-	histogram.Buckets = buckets
-
-	for _, i := range values {
-		for j := 0; j < len(histogram.Buckets); j++ {
-			if (i > histogram.Buckets[j].Low) && (i < histogram.Buckets[j].High) {
-				histogram.Buckets[j].Values = append(histogram.Buckets[j].Values, i)
-				break
-			}
-		}
-	}
 
 	return histogram
+}
+
+// EuclidDistance returns the euclidean distance between two histograms
+// or an error
+func (h *Histogram) EuclidDistance(histogram Histogram) (float64, error) {
+	var distance float64
+	// distance = math.Sqrt(math.Pow((x.X-y.X), 2) + math.Pow((x.Y-y.Y), 2) + math.Pow((x.Z-y.Z), 2))
+	// return 0, distance
+	return distance, nil
 }

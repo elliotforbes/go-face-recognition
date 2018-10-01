@@ -1,18 +1,23 @@
 package utils
 
 import (
-	"math"
+	"image"
+	_ "image/jpeg"
+	"os"
 )
 
-type Vector3 struct {
-	X float64
-	Y float64
-	Z float64
-}
+// LoadImage takes in a filepath and returns an image.Image or an error
+func LoadImage(filePath string) (image.Image, error) {
+	fImage, err := os.Open(filePath)
+	if err != nil {
+		return nil, err
+	}
+	defer fImage.Close()
 
-// calculateDistance - f
-func CalculateEuclidDistance(x, y Vector3) float64 {
-	var distance float64
-	distance = math.Sqrt(math.Pow((x.X-y.X), 2) + math.Pow((x.Y-y.Y), 2) + math.Pow((x.Z-y.Z), 2))
-	return distance
+	img, _, err := image.Decode(fImage)
+	if err != nil {
+		return nil, err
+	}
+
+	return img, nil
 }
