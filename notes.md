@@ -46,7 +46,9 @@ The Local Binary Pattern looks at 9 pixels at a time. It then takes these 9 pixe
 | 0 | - | 1 |
 | 0 | 1 | 0 |
 
-Equates to [1,1,0,1,0,1,0,0] if we turned this into an array of Bytes.
+Equates to [1,1,0,1,0,1,0,0] if we turned this into an array of Bytes. We do this for every pixel of our image. 
+
+
 
 ## References
 
