@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/elliotforbes/go-face-recognition/pkg/histogram"
-	"github.com/elliotforbes/go-face-recognition/pkg/lbp"
 	"github.com/elliotforbes/go-face-recognition/pkg/utils"
 )
 
@@ -16,12 +15,7 @@ func getHistogram(pathname string) (histogram.Histogram, error) {
 		fmt.Println(err)
 	}
 
-	lbpPixels, err := lbp.LocalBinaryPattern(myImage, 8, 1)
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	histogram, err := histogram.GenerateHistogram(lbpPixels, 8, 8)
+	histogram, err := histogram.GenerateHistogram(myImage)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -32,12 +26,11 @@ func getHistogram(pathname string) (histogram.Histogram, error) {
 func main() {
 	fmt.Println("Go Face Recognition Library")
 
-	histogram, err := getHistogram("testdata/avengers-02.jpeg")
+	histogram, err := getHistogram("testdata/png/02.png")
 	if err != nil {
 		fmt.Println(err)
 	}
-
-	histogram2, err := getHistogram("testdata/avengers-02.jpeg")
+	histogram2, err := getHistogram("testdata/png/01.png")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -48,6 +41,7 @@ func main() {
 	}
 	fmt.Printf("Euclidean Distance: %f\n", distance)
 
+	// myImage, _ := utils.LoadImage("testdata/test-100x100.jpg")
 	// err = lbp.GenerateLBPImage(myImage, "out.jpg")
 	// if err != nil {
 	// 	fmt.Println(err)

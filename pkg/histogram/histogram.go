@@ -3,53 +3,59 @@ package histogram
 import (
 	"errors"
 	"fmt"
+	"image"
 	"math"
+
+	"github.com/elliotforbes/go-face-recognition/pkg/lbp"
 )
+
+const GridX = 8
+const GridY = 8
 
 type Histogram struct {
 	Values []uint64
 }
 
 // GenerateHistogram generates a histogram based off the pixel 2D array passed into it
-func GenerateHistogram(pixels [][]uint64, gridX, gridY uint8) (Histogram, error) {
-	var histogram Histogram
+func GenerateHistogram(img image.Image) (Histogram, error) {
 	fmt.Println("Generating Histogram")
+	var histogram Histogram
 
-	if len(pixels) == 0 {
-		return histogram, errors.New("Empty Pixels Array")
+	pixels, err := lbp.LocalBinaryPattern(img, 8, 1)
+	if err != nil {
+		return histogram, errors.New("Error generating LBP")
 	}
 
-	rows := len(pixels)
-	cols := len(pixels[0])
+	height := len(pixels)
+	width := len(pixels[0])
 
-	if gridX <= 0 || int(gridX) >= cols {
-		return histogram, errors.New("Invalid Grid X passed")
-	}
-	if gridY <= 0 || int(gridY) >= rows {
-		return histogram, errors.New("Invalid Grid X passed")
+	if GridX >= height || GridY >= width {
+		return histogram, errors.New("Grid sizes exceed Pixel Dimensions")
 	}
 
-	gridWidth := cols / int(gridX)
-	gridHeight := rows / int(gridY)
+	gridWidth := width / int(GridX)
+	gridHeight := height / int(GridY)
+
+	fmt.Printf("Grid Width: %v Grid Height: %v\n", gridWidth, gridHeight)
 
 	// Calculates the histogram of each grid
-	for gX := 0; gX < int(gridX); gX++ {
-		for gY := 0; gY < int(gridY); gY++ {
+	for gridX := 0; gridX < int(GridX); gridX++ {
+		for gridY := 0; gridY < int(GridY); gridY++ {
+
 			// Create a slice with empty 256 positions
 			regionHistogram := make([]uint64, 256)
 
 			// Define the start and end positions for the following loop
-			startPosX := gX * gridWidth
-			startPosY := gY * gridHeight
-			endPosX := (gX + 1) * gridWidth
-			endPosY := (gY + 1) * gridHeight
+			startPosX := gridX * gridWidth
+			startPosY := gridY * gridHeight
+			endPosX := (gridX + 1) * gridWidth
+			endPosY := (gridY + 1) * gridHeight
 
-			// Make sure that no pixel has been leave at the end
-			if gX == int(gridX)-1 {
-				endPosX = cols
+			if gridX == int(GridX)-1 {
+				endPosX = width
 			}
-			if gY == int(gridY)-1 {
-				endPosY = rows
+			if gridY == int(GridY)-1 {
+				endPosY = height
 			}
 
 			// Creates the histogram for the current region

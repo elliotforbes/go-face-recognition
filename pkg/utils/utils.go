@@ -2,7 +2,7 @@ package utils
 
 import (
 	"image"
-	_ "image/jpeg"
+	_ "image/png"
 	"os"
 )
 

@@ -1,5 +1,5 @@
-Face Recognition
-==================
+Face Recognition and Face Detection
+====================================
 
 In this tutorial, we'll be implementing face recognition and detection using local binary patterns.
 
@@ -11,7 +11,9 @@ The process of recognizing a person from an image tends to follow a 3 step proce
 * Feature Extraction - In this phase we extract the most useful and unique features (properties) of a face image
 * Classification - With the most useful properties of the face extracted, we move into the classification phase and we try to compare these properties against an image database.
 
-## Feature Extraction with Local Binary Patterns
+## Face Detection
+
+## Face Recognition with Local Binary Patterns
 
 In order to extract some of the most useful features from an image of a face, we can use the Local Binary Pattern method.  
 
